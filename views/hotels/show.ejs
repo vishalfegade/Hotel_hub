@@ -1,0 +1,67 @@
+<%- include('../partials/header.ejs') %>
+
+    <div>
+        <%= hotel.name %>
+    </div>
+    <div>
+        <%= hotel.address %>
+    </div>
+    <div>
+        <%= hotel.price %>
+    </div>
+    <div>
+        <%= hotel.isRoomAvailable %>
+    </div>
+    <div>
+        <a href="/users/<%= hotel.author._id %>"><%= hotel.author.username %></a>
+        
+    </div>
+    <div>
+        <%= hotel.createdAt.toDateString() %>
+    </div>
+    <img src="<%= hotel.image %>" alt="" width="200px">
+    <div>
+        <a href="/hotels/<%= hotel._id %>/edit" class="btn btn-primary">Edit</a>
+
+        <form action="/hotels/<%= hotel._id %>?_method=DELETE" method="post">
+            <input type="submit" value="Delete" class="btn btn-danger">
+        </form>
+        <div class="row">
+            <div class="col-3">
+                <form action="/hotels/<%= hotel._id %>/reviews" method="post" class="mt-5 needs-validation" novalidate>
+                    <div class="form-floating mb-3">
+                        <input name="review[rating]" type="number" class="form-control" id="address" required
+                            placeholder="review rating" min="1" max="5" step="1">
+                        <label for="address">Hotel review rating</label>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please enter a rating for hotel between 1 to 5.
+                        </div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input name="review[body]" type="text" class="form-control" id="body" required
+                            placeholder="review body">
+                        <label for="body">Hotel review body</label>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please enter a text for rating for hotel.
+                        </div>
+                    </div>
+                    <input type="submit" value="Post review" class="mt-2 btn btn-primary">
+                </form>
+                <h1>All reviews</h1>
+                <% for(let review of hotel.reviews) { %>
+                    <div><%= review.body %> - <%= review.rating%></div>
+                    <form action="/hotels/<%= hotel._id %>/reviews/<%= review._id %>?_method=DELETE" method="post">
+                        <input type="submit" value="Delete" class="btn btn-danger">
+                    </form>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../partials/footer.ejs') %>

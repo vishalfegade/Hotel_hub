@@ -1,0 +1,9 @@
+<%- include('../partials/header.ejs') %>
+<h1>List of all hotels</h1>
+
+<% for( let hotel of hotels ) { %>
+    <div><%= hotel.name %></div>
+    <a href="/hotels/<%= hotel._id %>" class="btn btn-primary">Read More</a>
+<% } %>
+
+<%- include('../partials/footer.ejs') %>
