@@ -2,9 +2,10 @@
     <div class="row">
         <div class="col-3 mx-auto my-5">
             Add a new hotel
-            <form action="/hotels" method="post" class="needs-validation" novalidate>
+            <form action="/hotels" method="post" class="needs-validation" novalidate enctype="multipart/form-data">
                 <div class="form-floating mb-3">
-                    <input name="hotel[name]" type="text" class="form-control" id="name" required placeholder="Hotel Name">
+                    <input name="hotel[name]" type="text" class="form-control" id="name" required
+                        placeholder="Hotel Name">
                     <label for="name">Hotel Name</label>
                     <div class="valid-feedback">
                         Looks good!
@@ -14,7 +15,8 @@
                     </div>
                 </div>
                 <div class="form-floating mb-3">
-                    <input name="hotel[address]" type="text" class="form-control" id="address" required placeholder="Hotel address">
+                    <input name="hotel[address]" type="text" class="form-control" id="address" required
+                        placeholder="Hotel address">
                     <label for="address">Hotel address</label>
                     <div class="valid-feedback">
                         Looks good!
@@ -24,7 +26,8 @@
                     </div>
                 </div>
                 <div class="form-floating mb-3">
-                    <input name="hotel[price]" type="number" class="form-control" id="price" required placeholder="Hotel price" min="100" max="1000" step="100">
+                    <input name="hotel[price]" type="number" class="form-control" id="price" required
+                        placeholder="Hotel price" min="100" max="1000" step="100">
                     <label for="price">Hotel price</label>
                     <div class="valid-feedback">
                         Looks good!
@@ -33,15 +36,9 @@
                         Please enter a price for hotel.
                     </div>
                 </div>
-                <div class="form-floating mb-3">
-                    <input name="hotel[image]" type="text" class="form-control" id="image" required placeholder="Hotel image">
-                    <label for="image">Hotel image</label>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                    <div class="invalid-feedback">
-                        Please enter a image for hotel.
-                    </div>
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="inputGroupFile01">Upload</label>
+                    <input type="file" name="image" class="form-control" id="inputGroupFile01" required multiple>
                 </div>
 
                 <input type="submit" value="add" class="mt-2 btn btn-primary">

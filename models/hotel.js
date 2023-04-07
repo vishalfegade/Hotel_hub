@@ -16,19 +16,19 @@ const hotelSchema = new mongoose.Schema({
     isRoomAvailable: {
         type: Boolean,
         default: true,
-        min: [100,'Hotels rooms must be atLeast 100rs'],
+        min: [100, 'Hotels rooms must be atLeast 100rs'],
         max: 10000
-    },
-    image: {
-        type: String,
-        required: true
     },
     createdAt: {
         type: Date,
         default: Date.now()
     },
+    images: [{
+        url: String,
+        filename: String
+    }],
     author: {
-        type : mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
     overAllRating: {
@@ -43,5 +43,5 @@ const hotelSchema = new mongoose.Schema({
     ]
 })
 
-const Hotel = mongoose.model('hotel',hotelSchema);
+const Hotel = mongoose.model('hotel', hotelSchema);
 module.exports = Hotel

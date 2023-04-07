@@ -3,6 +3,13 @@ let Hotel = require('../models/hotel')
 let { isLoggedIn, isHotelAuthor } = require('../middlewares/index')
 const router = express.Router();
 
+
+// ! cloud upload
+const multer = require('multer')
+const { storage } = require('../cloudinary/cloud_config')
+const upload = multer({ storage })
+
+
 router.get('/', (req, res) => {
     res.render("Landing")
 })
@@ -22,11 +29,21 @@ router.get('/hotels/new', isLoggedIn, (req, res) => {
     res.render('hotels/new')
 })
 
-router.post('/hotels', isLoggedIn, async (req, res) => {
+router.post('/hotels', isLoggedIn, upload.array('image'), async (req, res) => {
+    // use upload.single('image') -> for single file upload
     try {
         let hotel = new Hotel(req.body.hotel)
         hotel.author = req.user._id;
+        // hotel.image.url = req.files.path;
+        // hotel.image.filename = req.file.filename;
+        for (let file of req.files) {
+            hotel.images.push({
+                url: file.path,
+                filename: file.filename
+            });
+        }
         await hotel.save();
+        // console.log(req.file)
         req.flash('success', 'Hotel Successfully created')
         res.redirect(`/hotels/${hotel._id}`)
     } catch (error) {
