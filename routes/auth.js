@@ -18,7 +18,7 @@ router.post('/register', async (req, res) => {
         req.logIn(registeredUser, (err) => {
             if (err) {
                 req.flash('error', 'User registration failed !')
-                console.log("error while registering user",err)
+                console.log("error while registering user", err)
                 return res.redirect('/register')
             }
             req.flash('success', 'User registered successfully !')
@@ -26,7 +26,7 @@ router.post('/register', async (req, res) => {
         })
     } catch (error) {
         req.flash('error', 'User registration failed !')
-        console.log("error while registering user",error)
+        console.log("error while registering user", error)
         return res.redirect('/register')
     }
 })
