@@ -41,7 +41,13 @@ router.post("/login", passport.authenticate('local', {
     failureRedirect: '/login'
 }), (req, res) => {
     req.flash('success', 'welcome back user')
-    res.redirect('/hotels')
+
+
+    // redirect to the original URL or a default URL
+    // console.log('req.session.originalUrl', req.session.originalUrl)
+    const redirectTo = req.session.originalUrl || '/';
+    delete req.session.originalUrl; // clear the stored URL
+    res.redirect(redirectTo);
 });
 
 router.get('/logout', async (req, res) => {
