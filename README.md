@@ -13,7 +13,7 @@
 - Return URL - ✅
 - Last created, 5 min ago - ✅
 - Star rating - ✅
-- Searching
+- Searching - ✅
 - Pagination - ✅
 - Payment
 
@@ -78,3 +78,10 @@ sampleSchema.plugin(mongoosePaginate)
 ```
 
 - Model.paginate([query], [options], [callback])
+
+## Searching
+
+- make a JS function, which run on every key up on input field
+- get all data, from which you want to search
+- get input search query, make it case inSensitive
+- filter data data, display "block" if found, otherwise "none".
