@@ -16,7 +16,12 @@ const URI = process.env.Database_URI;
 const SESSION_PASSWORD = process.env.SESSION_PASSWORD
 
 //! MONGOOSE CONNECTION
-mongoose.connect(URI)
+mongoose.connect(URI, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+})
     .then(() => {
         console.log("Database Connected");
     })
@@ -25,6 +30,7 @@ mongoose.connect(URI)
     })
 
 //! SESSION SETUP
+// Use express-session middleware to save session data
 app.use(session({
     secret: SESSION_PASSWORD,
     resave: false,
@@ -49,8 +55,8 @@ passport.deserializeUser(User.deserializeUser());
 //! SERVER SETUP & MIDDLEWARES
 app.use(flash())
 app.set('view engine', 'ejs')
-app.use(express.urlencoded({extended: true}))
-app.use(express.static(path.join(__dirname,'public')))
+app.use(express.urlencoded({ extended: true }))
+app.use(express.static(path.join(__dirname, 'public')))
 app.use(methodOverride('_method'))
 app.use((req, res, next) => {
     res.locals.currentUser = req.user

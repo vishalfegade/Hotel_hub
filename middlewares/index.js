@@ -6,9 +6,18 @@ const isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
         next();
     } else {
-        req.flash('error', 'Please sign in first');
-        console.log("you are not logged in");
-        res.redirect('/login');
+        // console.log('req.isAuthenticated():', req.isAuthenticated());
+        // console.log('req.session:', req.session);
+        // console.log('isLoggedIn middleware called with req.originalUrl:', req.originalUrl);
+        if (req.isAuthenticated()) {
+            next();
+        } else {
+            req.session.originalUrl = req.originalUrl;
+            req.session.save()
+            req.flash('error', 'Please sign in first');
+            console.log("you are not logged in");
+            res.redirect('/login');
+        }
     }
 };
 
