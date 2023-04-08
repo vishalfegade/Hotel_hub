@@ -1,7 +1,10 @@
 <%- include('../partials/header.ejs') %>
+
+<%- include('../partials/paginate.ejs') %>
+
 <h1>List of all hotels</h1>
 
-<% for( let hotel of hotels ) { %>
+<% for( let hotel of hotels.docs ) { %>
     <div><%= hotel.name %></div>
     <a href="/hotels/<%= hotel._id %>" class="btn btn-primary">Read More</a>
 <% } %>
