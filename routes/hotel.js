@@ -9,6 +9,9 @@ const multer = require('multer')
 const { storage } = require('../cloudinary/cloud_config')
 const upload = multer({ storage })
 
+// ! MapBox configuration
+const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
+const geoCoder = mbxGeocoding({ accessToken: process.env.MAPBOX_TOKEN });
 
 router.get('/', (req, res) => {
     res.render("Landing")
@@ -34,6 +37,8 @@ router.post('/hotels', isLoggedIn, upload.array('image'), async (req, res) => {
     try {
         let hotel = new Hotel(req.body.hotel)
         hotel.author = req.user._id;
+
+        // * file upload using multer & cloudinary
         // hotel.image.url = req.files.path;
         // hotel.image.filename = req.file.filename;
         for (let file of req.files) {
@@ -42,6 +47,17 @@ router.post('/hotels', isLoggedIn, upload.array('image'), async (req, res) => {
                 filename: file.filename
             });
         }
+
+        // * geocoding using mapBox
+        const geoData =  await geoCoder.forwardGeocode({
+            query: req.body.hotel.address,
+            limit: 1
+        })
+            .send();
+
+            // console.log(geoData.body.features[0].geometry.coordinates)
+        hotel.geometry = geoData.body.features[0].geometry;
+
         await hotel.save();
         // console.log(req.file)
         req.flash('success', 'Hotel Successfully created')
@@ -72,7 +88,8 @@ router.get('/hotels/:id', async (req, res) => {
         // path: 'some-property'
         // }
         // })
-        res.render('hotels/show', { hotel })
+        let coordinates = hotel.geometry.coordinates;
+        res.render('hotels/show', { hotel,coordinates })
     } catch (error) {
         req.flash('error', 'error while get hotels please try again later')
         console.log(error)

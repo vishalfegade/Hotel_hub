@@ -51,6 +51,10 @@
       </button>
     </div>
   </div>
+  <div class="col-1"></div>
+  <div class="col-5">
+    <div id="map"></div>
+  </div>
 </div>
 
 <div>
@@ -124,4 +128,28 @@
   </div>
 </div>
 
+<script>
+  console.log("coordinates",<%- coordinates %>)
+  // TO MAKE THE MAP APPEAR YOU MUST
+  // ADD YOUR ACCESS TOKEN FROM
+  // https://account.mapbox.com
+  let arr = [];
+  arr.push(<%- coordinates[0] %>)
+  arr.push(<%- coordinates[1] %>)
+  mapboxgl.accessToken = 'pk.eyJ1IjoicGFua2FqYmFsaXlhbiIsImEiOiJjbGc4MXk3NG4wa2IzM2dwa2N3YmQwZ3J3In0.0PB3bXDpLGolEFigFOP1vg';
+  const map = new mapboxgl.Map({
+    container: 'map', // container ID
+    // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+    style: 'mapbox://styles/mapbox/outdoors-v12', // style URL (streets-v12) for normal, (dark-v11) for dark mode
+    center: arr, // starting position [lng, lat]
+    zoom: 12 // starting zoom
+  });
+  // Create a default Marker and add it to the map.
+  const marker1 = new mapboxgl.Marker()
+    .setLngLat(arr)
+    .setPopup(new mapboxgl.Popup()
+      .setLngLat(arr)
+      .setHTML('<h5><%=hotel.name%></h5><p><%=hotel.address%></p>'))
+    .addTo(map);
+</script>
 <%- include('../partials/footer.ejs') %>

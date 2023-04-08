@@ -40,7 +40,18 @@ const hotelSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'review'
         }
-    ]
+    ],
+    geometry :{
+        type: {
+            type: String,
+            enum: ['Point'],
+            required: true
+        },
+        coordinates: {
+            type: [Number],
+            required: true
+        }
+    }
 })
 
 const Hotel = mongoose.model('hotel', hotelSchema);
