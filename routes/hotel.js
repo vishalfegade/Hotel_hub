@@ -19,7 +19,16 @@ router.get('/', (req, res) => {
 
 router.get('/hotels', async (req, res) => {
     try {
-        let hotels = await Hotel.find({})
+        // let hotels = await Hotel.find({})
+        let options = {
+            page: req.query.page || 1,
+            limit: 5,
+            sort: {
+                _id: 'desc'
+            }
+        }
+        let hotels = await Hotel.paginate({}, options)
+        // console.log(hotels)
         res.render('hotels/index', { hotels })
     } catch (error) {
         req.flash('error', 'error while fetching hotels, please try again later')

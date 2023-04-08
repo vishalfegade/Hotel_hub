@@ -7,14 +7,14 @@
 
 
 ## --- list of task to do ---
-- File upload
-- Maps
+- File upload - ✅
+- Maps - ✅
 - UpVote/DownVote
-- Return URL
-- Last created, 5 min ago
-- Star rating
+- Return URL - ✅
+- Last created, 5 min ago - ✅
+- Star rating - ✅
 - Searching
-- Pagination
+- Pagination - ✅
 - Payment
 
 
@@ -58,3 +58,23 @@ Service : https://github.com/LunarLogic/starability
 - add css (min file)
 - add input fields
 - add output fields
+
+## Pagination
+
+Package : https://www.npmjs.com/package/mongoose-paginate-v2 <br>
+Pagination sample : https://getbootstrap.com/docs/5.3/components/pagination/#overview <br>
+
+Install package
+```
+npm install mongoose-paginate-v2
+```
+Require Package
+```
+const mongoosePaginate = require('mongoose-paginate-v2');
+```
+Attach plugin to DataBase Schema
+```
+sampleSchema.plugin(mongoosePaginate)
+```
+
+- Model.paginate([query], [options], [callback])

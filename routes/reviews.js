@@ -15,7 +15,11 @@ router.post('/hotels/:id/reviews', isLoggedIn, async (req, res) => {
         let newReview = new Review(req.body.review);
         newReview.author = req.user;
         await newReview.save();
+
         let hotel = await Hotel.findById(req.params.id);
+
+        hotel.overAllRating = ((hotel.overAllRating*hotel.reviews.length) + newReview.rating)/(hotel.reviews.length+1)
+
         hotel.reviews.push(newReview);
         await hotel.save();
         req.flash('success', 'Comment added')
