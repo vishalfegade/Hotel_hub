@@ -75,24 +75,20 @@
         class="mt-5 needs-validation"
         novalidate
       >
-        <div class="form-floating mb-3">
-          <input
-            name="review[rating]"
-            type="number"
-            class="form-control"
-            id="address"
-            required
-            placeholder="review rating"
-            min="1"
-            max="5"
-            step="1"
-          />
-          <label for="address">Hotel review rating</label>
-          <div class="valid-feedback">Looks good!</div>
-          <div class="invalid-feedback">
-            Please enter a rating for hotel between 1 to 5.
-          </div>
-        </div>
+        <fieldset class="starability-basic">
+          <legend>First rating:</legend>
+          <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No rating." />
+          <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+          <label for="first-rate1" title="Terrible">1 star</label>
+          <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+          <label for="first-rate2" title="Not good">2 stars</label>
+          <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+          <label for="first-rate3" title="Average">3 stars</label>
+          <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+          <label for="first-rate4" title="Very good">4 stars</label>
+          <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+          <label for="first-rate5" title="Amazing">5 stars</label>
+        </fieldset>
         <div class="form-floating mb-3">
           <input
             name="review[body]"
@@ -113,7 +109,11 @@
       <h1>All reviews</h1>
       <% for(let review of hotel.reviews) { %>
       <div>
-        <%= review.body %> - <%= review.rating%> - <%= review.author.name %>
+        <div><%= review.body %></div>
+        <div>
+          <p class="starability-result" data-rating="<%= review.rating %>"></p>
+        </div>
+        <div><%= review.author.name %></div>
       </div>
 
       <% if (currentUser && review.author._id.equals(currentUser._id)) { %>
@@ -129,7 +129,6 @@
 </div>
 
 <script>
-  console.log("coordinates",<%- coordinates %>)
   // TO MAKE THE MAP APPEAR YOU MUST
   // ADD YOUR ACCESS TOKEN FROM
   // https://account.mapbox.com
