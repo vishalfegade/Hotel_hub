@@ -149,11 +149,10 @@ router.get('/hotels/:id/upvote',isLoggedIn, async(req,res)=>{
     try {
         // check if user has already liked - remove the like
         const {id} = req.params;
+        const hotel = await Hotel.findById(id)
         const upvoteExists = await Hotel.findOne({
             _id: id,
-            upVotes: {
-                _id: req.user._id
-            }
+            upVotes: req.user._id
         })
         const downvoteExists = await Hotel.findOne({
             _id: id,
@@ -162,24 +161,71 @@ router.get('/hotels/:id/upvote',isLoggedIn, async(req,res)=>{
             }
         })
         if(upvoteExists){
-            res.send("you already liked this")
+            const hotel = await Hotel.findByIdAndUpdate(id,{
+                $pull: {upVotes : req.user._id}
+            })
+            // console.log("Already found Like & Like Removed")
+            res.redirect(`/hotels/${req.params.id}`)
         } else if(downvoteExists){
-            res.send("you already disliked it")
+            const hotel = await Hotel.findByIdAndUpdate(id,{
+                $pull: {downVotes : req.user._id},
+                $push: {upVotes : req.user._id}
+            })
+            // console.log("Dislike Removed & Like Added")
+            res.redirect(`/hotels/${req.params.id}`)
         } else {
-            res.send("adding like to it")
+            hotel.upVotes.push(req.user);
+            hotel.save();
+            // console.log("Like added")
+            res.redirect(`/hotels/${req.params.id}`)
         }
     } catch (error) {
-        console.log(error)
+        req.flash('error', 'error while adding like to hotel please try again later')
+        // console.log(error)
+        res.redirect(`/hotels/${req.params.id}`)
     }
 })
 
-// router.get('/hotels/:id/downvote',isLoggedIn, async(req,res)=>{
-//     try {
-
-//     } catch (error) {
-//         console.log(error)
-//     }
-// })
+router.get('/hotels/:id/downvote',isLoggedIn, async(req,res)=>{
+    try {
+        // check if user has already liked - remove the like
+        const {id} = req.params;
+        const hotel = await Hotel.findById(id)
+        const upvoteExists = await Hotel.findOne({
+            _id: id,
+            upVotes: req.user._id
+        })
+        const downvoteExists = await Hotel.findOne({
+            _id: id,
+            downVotes: {
+                _id: req.user._id
+            }
+        })
+        if(upvoteExists){
+            const hotel = await Hotel.findByIdAndUpdate(id,{
+                $pull: {upVotes : req.user._id},
+                $push: {downVotes : req.user._id}
+            })
+            // console.log("Like Removed & Dislike Added")
+            res.redirect(`/hotels/${req.params.id}`)
+        } else if(downvoteExists){
+            const hotel = await Hotel.findByIdAndUpdate(id,{
+                $pull: {downVotes : req.user._id}
+            })
+            // console.log("Dislike Removed")
+            res.redirect(`/hotels/${req.params.id}`)
+        } else {
+            hotel.downVotes.push(req.user);
+            hotel.save();
+            // console.log("DisLike added")
+            res.redirect(`/hotels/${req.params.id}`)
+        }
+    } catch (error) {
+        req.flash('error', 'error while adding dislike to hotel please try again later')
+        console.log(error)
+        res.redirect(`/hotels/${req.params.id}`)
+    }
+})
 
 
 
