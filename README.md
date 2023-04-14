@@ -15,7 +15,7 @@
 - Star rating - ✅
 - Searching - ✅
 - Pagination - ✅
-- Payment
+- Payment - ✅
 
 
 ## for redirecting old url
@@ -90,3 +90,18 @@ sampleSchema.plugin(mongoosePaginate)
 
 - you can upVote any hotel, by pressing 👍 button
 - you can downVote any hotel, by pressing 👎 button
+
+## Checkout / Payment
+
+Testing Card No. : 4242424242424242<br>
+Testing Card Expiry : 02 / 60<br>
+Testing Card CVV : 422<br>
+Testing Card Name : Pankaj Kumar<br>
+Testing Card Country : India<br>
+
+Package used : stripe
+```
+npm i stripe
+```
+Official Website : https://stripe.com/en-in
+
