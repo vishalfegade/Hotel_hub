@@ -16,7 +16,7 @@ const geoCoder = mbxGeocoding({ accessToken: process.env.MAPBOX_TOKEN });
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 router.get("/", (req, res) => {
-    res.render("Landing");
+    res.render("landing");
 });
 
 router.get("/hotels", async (req, res) => {
