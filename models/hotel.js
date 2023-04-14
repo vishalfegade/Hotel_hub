@@ -52,7 +52,19 @@ const hotelSchema = new mongoose.Schema({
             type: [Number],
             required: true
         }
-    }
+    },
+    upVotes: [
+        {
+            type : mongoose.Schema.Types.ObjectId,
+            ref: 'user'
+        }
+    ],
+    downVotes: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'user'
+        }
+    ]
 })
 
 hotelSchema.plugin(mongoosePaginate)

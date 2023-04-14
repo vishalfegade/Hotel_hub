@@ -1,49 +1,346 @@
 <%- include('../partials/header.ejs') %>
-    <div class="row">
-        <div class="col-3 mx-auto my-5">
-            Add a new hotel
-            <form action="/hotels" method="post" class="needs-validation" novalidate enctype="multipart/form-data">
-                <div class="form-floating mb-3">
-                    <input name="hotel[name]" type="text" class="form-control" id="name" required
-                        placeholder="Hotel Name">
-                    <label for="name">Hotel Name</label>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                    <div class="invalid-feedback">
-                        Please enter a name for hotel.
-                    </div>
-                </div>
-                <div class="form-floating mb-3">
-                    <input name="hotel[address]" type="text" class="form-control" id="address" required
-                        placeholder="Hotel address">
-                    <label for="address">Hotel address</label>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                    <div class="invalid-feedback">
-                        Please enter a address for hotel.
-                    </div>
-                </div>
-                <div class="form-floating mb-3">
-                    <input name="hotel[price]" type="number" class="form-control" id="price" required
-                        placeholder="Hotel price" min="100" max="1000" step="100">
-                    <label for="price">Hotel price</label>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                    <div class="invalid-feedback">
-                        Please enter a price for hotel.
-                    </div>
-                </div>
-                <div class="input-group mb-3">
-                    <label class="input-group-text" for="inputGroupFile01">Upload</label>
-                    <input type="file" name="image" class="form-control" id="inputGroupFile01" required multiple>
-                </div>
 
-                <input type="submit" value="add" class="mt-2 btn btn-primary">
-            </form>
+    <!-- Page container-->
+    <div class="container mt-5 mb-md-4 py-5">
+        <div class="row">
+            <!-- Page content-->
+            <div class="col-lg-8">
+                <!-- Breadcrumb-->
+                <nav class="mb-3 pt-2 pt-lg-3" aria-label="Breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Add Hotel</li>
+                    </ol>
+                </nav>
+                <!-- Title-->
+                <div class="mb-4">
+                    <h1 class="h2 mb-0">Add Hotel</h1>
+                    <div class="d-lg-none pt-3 mb-2">33% content filled</div>
+                    <div class="progress d-lg-none mb-4" style="height: .25rem;">
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: 33%" aria-valuenow="33"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <!-- form start  -->
+                <form action="/hotels" method="post" class="needs-validation" novalidate enctype="multipart/form-data">
+                <!-- Basic info-->
+                <section class="card card-body border-0 shadow-sm p-4 mb-4" id="basic-info">
+                    <h2 class="h4 mb-4"><i class="fi-info-circle text-primary fs-5 mt-n1 me-2"></i>Basic info</h2>
+                    <div class="mb-3">
+                        <label class="form-label" for="ab-title">Official Hotel name
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input class="form-control" type="text" id="ab-title" placeholder="Title for your hotel" required name="hotel[name]">
+                    </div>
+                </section>
+                <!-- Location-->
+                <section class="card card-body border-0 shadow-sm p-4 mb-4" id="location">
+                    <h2 class="h4 mb-4"><i class="fi-map-pin text-primary fs-5 mt-n1 me-2"></i>Location</h2>
+                
+                    <div class="mb-3">
+                        <label class="form-label" for="ab-address">Hotel address <span
+                                class="text-danger">*</span></label>
+                        <input class="form-control" type="text" id="ab-address" required name="hotel[address]" placeholder="Address of your hotel">
+                </section>
+
+                <!-- Description-->
+                <!-- <section class="card card-body border-0 shadow-sm p-4 mb-4" id="description">
+                    <h2 class="h4 mb-4"><i class="fi-edit text-primary fs-5 mt-n1 me-2"></i>Description</h2>
+                    <label class="form-label" for="ab-description">Description <span
+                            class="text-danger">*</span></label>
+                    <div class="row mb-4">
+                        <div class="col-md-9 mb-md-0 mb-3">
+                            <textarea class="form-control" id="ab-description" rows="6"
+                                placeholder="Describe your accommodation"></textarea><span class="form-text">8000
+                                characters left</span>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="file-uploader bg-secondary" type="file" accept="image/png, image/jpeg"
+                                data-label-idle="&lt;i class=&quot;d-inline-block fi-cloud-upload fs-2 text-muted mb-2&quot;&gt;&lt;/i&gt;&lt;br&gt;&lt;span&gt;Upload logo&lt;/span&gt;"
+                                data-style-panel-layout="compact" data-image-preview-height="160"
+                                data-image-crop-aspect-ratio="1:1" data-image-resize-target-width="200"
+                                data-image-resize-target-height="200">
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label d-block fw-bold mb-2 pb-1">Total number of rooms &amp; suites</label>
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Choose number of rooms">
+                            <input class="btn-check" type="radio" id="rooms-5" name="rooms">
+                            <label class="btn btn-outline-secondary px-sm-3 px-2 fw-normal" for="rooms-5">5+</label>
+                            <input class="btn-check" type="radio" id="rooms-10" name="rooms">
+                            <label class="btn btn-outline-secondary px-sm-3 px-2 fw-normal" for="rooms-10">10+</label>
+                            <input class="btn-check" type="radio" id="rooms-20" name="rooms">
+                            <label class="btn btn-outline-secondary px-sm-3 px-2 fw-normal" for="rooms-20">20+</label>
+                            <input class="btn-check" type="radio" id="rooms-50" name="rooms">
+                            <label class="btn btn-outline-secondary px-sm-3 px-2 fw-normal" for="rooms-50">50+</label>
+                            <input class="btn-check" type="radio" id="rooms-100" name="rooms">
+                            <label class="btn btn-outline-secondary px-sm-3 px-2 fw-normal" for="rooms-100">100+</label>
+                            <input class="btn-check" type="radio" id="rooms-200" name="rooms">
+                            <label class="btn btn-outline-secondary px-sm-3 px-2 fw-normal" for="rooms-200">200+</label>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label d-block fw-bold mb-2 pb-1">Hotel rating</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="5-star">
+                            <label class="form-check-label fs-sm align-middle mt-n2" for="5-star"><span
+                                    class="star-rating"><i class="star-rating-icon fi-star-filled active"></i><i
+                                        class="star-rating-icon fi-star-filled active"></i><i
+                                        class="star-rating-icon fi-star-filled active"></i><i
+                                        class="star-rating-icon fi-star-filled active"></i><i
+                                        class="star-rating-icon fi-star-filled active"></i></span>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="4-star">
+                            <label class="form-check-label fs-sm align-middle mt-n2" for="4-star"><span
+                                    class="star-rating"><i class="star-rating-icon fi-star-filled active"></i><i
+                                        class="star-rating-icon fi-star-filled active"></i><i
+                                        class="star-rating-icon fi-star-filled active"></i><i
+                                        class="star-rating-icon fi-star-filled active"></i><i
+                                        class="star-rating-icon fi-star"></i></span>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="3-star">
+                            <label class="form-check-label fs-sm align-middle mt-n2" for="3-star"><span
+                                    class="star-rating"><i class="star-rating-icon fi-star-filled active"></i><i
+                                        class="star-rating-icon fi-star-filled active"></i><i
+                                        class="star-rating-icon fi-star-filled active"></i><i
+                                        class="star-rating-icon fi-star"></i><i
+                                        class="star-rating-icon fi-star"></i></span>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="2-star">
+                            <label class="form-check-label fs-sm align-middle mt-n2" for="2-star"><span
+                                    class="star-rating"><i class="star-rating-icon fi-star-filled active"></i><i
+                                        class="star-rating-icon fi-star-filled active"></i><i
+                                        class="star-rating-icon fi-star"></i><i class="star-rating-icon fi-star"></i><i
+                                        class="star-rating-icon fi-star"></i></span>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="1-star">
+                            <label class="form-check-label fs-sm align-middle mt-n2" for="1-star"><span
+                                    class="star-rating"><i class="star-rating-icon fi-star-filled active"></i><i
+                                        class="star-rating-icon fi-star"></i><i class="star-rating-icon fi-star"></i><i
+                                        class="star-rating-icon fi-star"></i><i
+                                        class="star-rating-icon fi-star"></i></span>
+                            </label>
+                        </div>
+                    </div>
+                   
+                    <div class="mb-4">
+                        <label class="form-label d-block fw-bold mb-2 pb-1">Amenities</label>
+                        <div class="row row-cols-md-3 row-cols-sm-2 row-cols-1">
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" id="ab-amenity-wifi" type="checkbox">
+                                    <label class="form-check-label" for="ab-amenity-wifi">WiFi</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" id="ab-amenity-pets" type="checkbox">
+                                    <label class="form-check-label" for="ab-amenity-pets">Pets-friendly</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" id="ab-amenity-dishwasher" type="checkbox">
+                                    <label class="form-check-label" for="ab-amenity-dishwasher">Dishwasher</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" id="ab-amenity-parking" type="checkbox" checked>
+                                    <label class="form-check-label" for="ab-amenity-parking">Parking place</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" id="ab-amenity-restaurant" type="checkbox">
+                                    <label class="form-check-label" for="ab-amenity-restaurant">Restaurant</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" id="ab-amenity-iron" type="checkbox">
+                                    <label class="form-check-label" for="ab-amenity-iron">Iron</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" id="ab-amenity-swimming-pool" type="checkbox"
+                                        checked>
+                                    <label class="form-check-label" for="ab-amenity-swimming-pool">Swimming pool</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" id="ab-amenity-bar" type="checkbox">
+                                    <label class="form-check-label" for="ab-amenity-bar">Bar</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" id="ab-amenity-hair-dryer" type="checkbox">
+                                    <label class="form-check-label" for="ab-amenity-hair-dryer">Hair dryer</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" id="ab-amenity-spa-lounge" type="checkbox">
+                                    <label class="form-check-label" for="ab-amenity-spa-lounge">Spa lounge</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" id="ab-amenity-tv" type="checkbox" checked>
+                                    <label class="form-check-label" for="ab-amenity-tv">TV</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" id="ab-amenity-kitchen" type="checkbox">
+                                    <label class="form-check-label" for="ab-amenity-kitchen">Kitchen</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" id="ab-amenity-gym" type="checkbox">
+                                    <label class="form-check-label" for="ab-amenity-gym">Gym</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" id="ab-amenity-air-conditioning" type="checkbox">
+                                    <label class="form-check-label" for="ab-amenity-air-conditioning">Air
+                                        conditioning</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" id="ab-amenity-breakfast" type="checkbox">
+                                    <label class="form-check-label" for="ab-amenity-breakfast">Breakfast</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" id="ab-amenity-laundry-service" type="checkbox">
+                                    <label class="form-check-label" for="ab-amenity-laundry-service">Laundry
+                                        service</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" id="ab-amenity-heating" type="checkbox" checked>
+                                    <label class="form-check-label" for="ab-amenity-heating">Heating</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" id="ab-amenity-security-cameras" type="checkbox">
+                                    <label class="form-check-label" for="ab-amenity-security-cameras">Security
+                                        cameras</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label d-block fw-bold mb-2 pb-1">Room types</label>
+                        <div class="form-check">
+                            <input class="form-check-input" id="ab-room-non-smoking" type="checkbox">
+                            <label class="form-check-label" for="ab-room-non-smoking">Non-smoking rooms</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" id="ab-room-single" type="checkbox">
+                            <label class="form-check-label" for="ab-room-single">Single rooms</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" id="ab-room-double" type="checkbox">
+                            <label class="form-check-label" for="ab-room-double">Double rooms</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" id="ab-room-family" type="checkbox">
+                            <label class="form-check-label" for="ab-room-family">Family suites</label>
+                        </div>
+                    </div>
+
+                </section> -->
+                <!-- Price range-->
+                <section class="card card-body border-0 shadow-sm p-4 mb-4" id="price">
+                    <h2 class="h4 mb-4"><i class="fi-cash text-primary fs-5 mt-n1 me-2"></i>Hotel Price</h2>
+                    <label class="form-label" for="ab-price">Price (per night) <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-8 d-flex flex-sm-row flex-column px-0">
+                        <div class="d-flex align-items-center me-sm-2 mb-sm-0 mb-2">
+                            <input class="form-control" name="hotel[price]" id="ab-price" type="number" min="100" max="10000" step="100" placeholder="Hotel Price"
+                                required>
+                        </div>
+                        <select class="form-select w-sm-25 ms-sm-0 ms-auto">
+                            <option value="usd">&#36;</option>
+                            <option value="eur">&#8364;</option>
+                            <option value="gbp">&#163;</option>
+                            <option value="jpy">&#165;</option>
+                        </select>
+                    </div>
+                </section>
+                <!-- Photos / video-->
+                <section class="card card-body border-0 shadow-sm p-4 mb-4" id="photos">
+                    <h2 class="h4 mb-4"><i class="fi-image text-primary fs-5 mt-n1 me-2"></i>Photos / video</h2>
+                    <div class="alert alert-info mb-4" role="alert">
+                        <div class="d-flex"><i class="fi-alert-circle me-2 me-sm-3"></i>
+                            <p class="fs-sm mb-1">The maximum photo size is 8 MB. Formats: jpeg, jpg, png. Put the main
+                                picture first.<br>The maximum video size is 10 MB. Formats: mp4, mov.</p>
+                        </div>
+                    </div>
+                    <!-- <input  multiple class="file-uploader file-uploader-grid" type="file" name="image" data-max-file-size="10MB" accept="image/png, image/jpeg, video/mp4, video/mov" data-label-idle="&lt;div class=&quot;btn btn-primary rounded-pill mb-3&quot;&gt;&lt;i class=&quot;fi-cloud-upload me-1&quot;&gt;&lt;/i&gt;Upload photos / video&lt;/div&gt;&lt;br&gt;or drag them in"> -->
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="inputGroupFile01">Upload</label>
+                        <input type="file" name="image" class="form-control  file-uploader-grid" id="inputGroupFile01" data-max-file-size="10MB" accept="image/png, image/jpeg, video/mp4, video/mov" data-label-idle="&lt;div class=&quot;btn btn-primary rounded-pill mb-3&quot;&gt;&lt;i class=&quot;fi-cloud-upload me-1&quot;&gt;&lt;/i&gt;Upload photos / video&lt;/div&gt;&lt;br&gt;or drag them in" required multiple>
+                    </div>
+                </section>
+                <!-- Action buttons -->
+                <section class="d-sm-flex flex-row-reverse pt-2">
+
+                    <input type="submit" value="Save and continue" class="btn btn-primary btn-lg d-block rounded-pill mb-2">
+                </section>
+            </div>
+        </form>
+            <!-- form end  -->
+
+            <!-- Progress of completion-->
+            <aside class="col-lg-3 offset-lg-1 d-none d-lg-block">
+                <div class="sticky-top pt-5">
+                    <h6 class="pt-5 mt-3 mb-2">33% content filled</h6>
+                    <div class="progress mb-4" style="height: .25rem;">
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: 33%" aria-valuenow="33"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <ul class="list-unstyled">
+                        <li class="d-flex align-items-center"><i class="fi-check text-primary me-2"></i><a
+                                class="nav-link fw-normal ps-1 p-0" href="#basic-info" data-scroll
+                                data-scroll-offset="20">Basic info</a></li>
+                        <li class="d-flex align-items-center"><i class="fi-check text-primary me-2"></i><a
+                                class="nav-link fw-normal ps-1 p-0" href="#location" data-scroll
+                                data-scroll-offset="20">Location</a></li>
+                        <li class="d-flex align-items-center"><i class="fi-check text-muted me-2"></i><a
+                                class="nav-link fw-normal ps-1 p-0" href="#contacts" data-scroll
+                                data-scroll-offset="20">Contacts</a></li>
+                        <li class="d-flex align-items-center"><i class="fi-check text-muted me-2"></i><a
+                                class="nav-link fw-normal ps-1 p-0" href="#description" data-scroll
+                                data-scroll-offset="20">Description</a></li>
+                        <li class="d-flex align-items-center"><i class="fi-check text-muted me-2"></i><a
+                                class="nav-link fw-normal ps-1 p-0" href="#price" data-scroll
+                                data-scroll-offset="20">Price range</a></li>
+                        <li class="d-flex align-items-center"><i class="fi-check text-muted me-2"></i><a
+                                class="nav-link fw-normal ps-1 p-0" href="#photos" data-scroll
+                                data-scroll-offset="20">Photos / video</a></li>
+                    </ul>
+                </div>
+            </aside>
         </div>
     </div>
-    <script src="/scripts/form-validation.js"></script>
     <%- include('../partials/footer.ejs') %>

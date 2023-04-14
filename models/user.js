@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
     },
     name: {
         type: String,
-        default: 'not given',
+        default: 'No name',
         trim: true,
 
     }

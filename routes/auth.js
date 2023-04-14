@@ -12,7 +12,8 @@ router.get('/register', async (req, res) => {
 router.post('/register', async (req, res) => {
     try {
         let user = new User({
-            username: req.body.username
+            username: req.body.username,
+            name: req.body.name
         })
         let registeredUser = await User.register(user, req.body.password)
         req.logIn(registeredUser, (err) => {
@@ -50,18 +51,23 @@ router.post("/login", passport.authenticate('local', {
     res.redirect(redirectTo);
 });
 
-router.get('/logout', async (req, res) => {
-    req.logout((error) => {
-        if (error) {
-            req.flash('error', 'Error while logging out !')
-            console.log("error while logging out", error)
-            return res.redirect('/hotels')
-        }
-        req.flash('success', 'Logged out successfully !')
-        res.redirect('/hotels')
-    })
-})
+// router.get('/logout', async (req, res) => {
+//     req.logout((error) => {
+//         if (error) {
+//             req.flash('error', 'Error while logging out !')
+//             console.log("error while logging out", error)
+//             return res.redirect('/hotels')
+//         }
+//         console.log("hi")
+//         req.flash('success', 'Logged out successfully !')
+//         res.redirect('/hotels')
+//     })
+// })
 
+router.get("/logout",(req,res)=>{
+    req.logout();
+    res.redirect("/");
+});
 
 
 module.exports = router;
