@@ -123,7 +123,7 @@ router.get("/hotels/:id/edit", isLoggedIn, isHotelAuthor, async (req, res) => {
     }
 });
 
-router.patch("/hotels/:id", isLoggedIn, isHotelAuthor, async (req, res) => {
+router.patch("/hotels/:id", isLoggedIn, isHotelAuthor,upload.array("image"), async (req, res) => {
     try {
         await Hotel.findByIdAndUpdate(req.params.id, req.body.hotel);
         req.flash("success", "Hotel Successfully updated");
