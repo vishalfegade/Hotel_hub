@@ -6,7 +6,7 @@ const express = require('express'),
     passport = require('passport'),
     localStrategy = require('passport-local'),
     path = require('path'),
-    moment = require("moment");
+    moment = require("moment"),
     methodOverride = require('method-override');
 
 require('dotenv').config();
