@@ -22,7 +22,7 @@ router.get('/hotels', async (req, res) => {
         // let hotels = await Hotel.find({})
         let options = {
             page: req.query.page || 1,
-            limit: 5,
+            limit: 6,
             sort: {
                 _id: 'desc'
             }
@@ -43,6 +43,8 @@ router.get('/hotels/new', isLoggedIn, (req, res) => {
 
 router.post('/hotels', isLoggedIn, upload.array('image'), async (req, res) => {
     // use upload.single('image') -> for single file upload
+    console.log("body", req.body)
+    console.log("files", req.files)
     try {
         let hotel = new Hotel(req.body.hotel)
         hotel.author = req.user._id;
@@ -78,8 +80,9 @@ router.post('/hotels', isLoggedIn, upload.array('image'), async (req, res) => {
     }
 })
 
-router.get('/hotels/:id', async (req, res) => {
+router.get('/hotels/:id',isLoggedIn, async (req, res) => {
     try {
+        let allHotels = await Hotel.find({})
         let hotel = await Hotel.findById(req.params.id)
             .populate({
                 path: 'author'
@@ -98,7 +101,7 @@ router.get('/hotels/:id', async (req, res) => {
         // }
         // })
         let coordinates = hotel.geometry.coordinates;
-        res.render('hotels/show', { hotel,coordinates })
+        res.render('hotels/show', { hotel,coordinates,allHotels })
     } catch (error) {
         req.flash('error', 'error while get hotels please try again later')
         console.log(error)
@@ -140,5 +143,103 @@ router.delete('/hotels/:id', isLoggedIn, isHotelAuthor, async (req, res) => {
         res.redirect('/')
     }
 })
+
+
+router.get('/hotels/:id/upvote',isLoggedIn, async(req,res)=>{
+    try {
+        // check if user has already liked - remove the like
+        const {id} = req.params;
+        const upvoteExists = await Hotel.findOne({
+            _id: id,
+            upVotes: {
+                _id: req.user._id
+            }
+        })
+        const downvoteExists = await Hotel.findOne({
+            _id: id,
+            downVotes: {
+                _id: req.user._id
+            }
+        })
+        if(upvoteExists){
+            res.send("you already liked this")
+        } else if(downvoteExists){
+            res.send("you already disliked it")
+        } else {
+            res.send("adding like to it")
+        }
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+// router.get('/hotels/:id/downvote',isLoggedIn, async(req,res)=>{
+//     try {
+
+//     } catch (error) {
+//         console.log(error)
+//     }
+// })
+
+
+
+//! ways to create sample hotels, as many as you can
+// router.get('/seed',isLoggedIn, async (req,res)=>{
+//     try {
+//         for(let i=0; i<=49; i++) {
+//             let hotel = new Hotel({
+//                 // name : 'Highway Hills',
+//                 name : `Highway Hills ${i+1}`,
+//                 geometry: {
+//                     type: 'Point',
+//                     coordinates: [77.2090057, 28.6138954]
+//                 },
+//                 address: 'Delhi',
+//                 price: Math.floor(Math.random() * 10000),
+//                 images: [
+//                     {
+//                         url: 'https://res.cloudinary.com/personal-storage/image/upload/v1681366137/Staysense/g0ozvlirg1wwpximv3t2.jpg',
+//                         filename: 'Staysense/g0ozvlirg1wwpximv3t2'
+//                     },
+//                     {
+//                         url: 'https://res.cloudinary.com/personal-storage/image/upload/v1681366137/Staysense/pypiyhfoq2vahqls2oxb.jpg',
+//                         filename: 'Staysense/pypiyhfoq2vahqls2oxb'
+//                     },
+//                     {
+//                         url: 'https://res.cloudinary.com/personal-storage/image/upload/v1681366135/Staysense/hwfijrvrdxu41zx1p42n.jpg',
+//                         filename: 'Staysense/hwfijrvrdxu41zx1p42n'
+//                     },
+//                     {
+//                         url: 'https://res.cloudinary.com/personal-storage/image/upload/v1681366136/Staysense/q2zn6dj68jcezrh2mwdt.jpg',
+//                         filename: 'Staysense/q2zn6dj68jcezrh2mwdt'
+//                     },
+//                     {
+//                         url: 'https://res.cloudinary.com/personal-storage/image/upload/v1681366136/Staysense/kfzcvda3krmcmmawttcx.jpg',
+//                         filename: 'Staysense/kfzcvda3krmcmmawttcx'
+//                     },
+//                     {
+//                         url: 'https://res.cloudinary.com/personal-storage/image/upload/v1681366134/Staysense/kihro66e5oziiqtouak1.jpg',
+//                         filename: 'Staysense/kihro66e5oziiqtouak1'
+//                     },
+//                     {
+//                         url: 'https://res.cloudinary.com/personal-storage/image/upload/v1681366137/Staysense/n6qs9pharagdtddswvbd.jpg',
+//                         filename: 'Staysense/n6qs9pharagdtddswvbd'
+//                     },
+//                     {
+//                         url: 'https://res.cloudinary.com/personal-storage/image/upload/v1681366136/Staysense/apy6uaj5h7zy2ldxclzf.jpg',
+//                         filename: 'Staysense/apy6uaj5h7zy2ldxclzf'
+//                     }
+//                 ],
+//                 upVotes : [],
+//                 downVotes : []
+//             });
+//             hotel.author = req.user;
+//             await hotel.save();
+//         }
+//         res.send('done')
+//     } catch (error) {
+//         console.log("error while make hotels", error)
+//     }
+// })
 
 module.exports = router;

@@ -1,31 +1,54 @@
 <%- include('../partials/header.ejs') %>
-    <div class="row">
-        <div class="col-3 mx-auto my-5">
-            Login form
-            <form action="/login" method="post" class="needs-validation" novalidate>
-                <div class="form-floating mb-3">
-                    <input name="username" type="email" class="form-control" id="email" required placeholder="name@example.com">
-                    <label for="email">Email address</label>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                    <div class="invalid-feedback">
-                        Please choose a username.
+    <!-- Sign In Modal-->
+    <div class="modal fade show my-5 pt-5" id="signin-modal" tabindex="-1" style="display: block;position: relative;"
+        aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-lg modal-dialog-centered p-2 my-0 mx-auto" style="max-width: 950px;">
+            <div class="modal-content">
+                <div class="modal-body px-0 py-2 py-sm-0">
+                    <a class="btn-close position-absolute top-0 end-0 mt-3 me-3" type="button" href="/"></a>
+                    <div class="row mx-0 align-items-center">
+                        <div class="col-md-6 border-end-md p-4 p-sm-5">
+                            <h2 class="h3 mb-4 mb-sm-5">Hey there!<br>Welcome back.</h2><img class="d-block mx-auto"
+                                src="img/signin-modal/signin.svg" alt="Illustration" width="344">
+                            <div class="mt-4 mt-sm-5">Don't have an account? <a href="/register">Sign up here</a></div>
+                        </div>
+                        <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5"><a
+                                class="btn btn-outline-info rounded-pill w-100 mb-3" href="#"><i
+                                    class="fi-google fs-lg me-1"></i>Sign in with Google</a><a
+                                class="btn btn-outline-info rounded-pill w-100 mb-3" href="#"><i
+                                    class="fi-facebook fs-lg me-1"></i>Sign in with Facebook</a>
+                            <div class="d-flex align-items-center py-3 mb-3">
+                                <hr class="w-100">
+                                <div class="px-3">Or</div>
+                                <hr class="w-100">
+                            </div>
+                            <form action="/login" method="post" class="needs-validation" novalidate="">
+                                <div class="mb-4">
+                                    <label class="form-label mb-2" for="signin-email">Email address</label>
+                                    <input class="form-control" type="email" id="signin-email"
+                                        placeholder="Enter your email" required name="username">
+                                </div>
+                                <div class="mb-4">
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <label class="form-label mb-0" for="signin-password">Password</label><a
+                                            class="fs-sm" href="#">Forgot password?</a>
+                                    </div>
+                                    <div class="password-toggle">
+                                        <input class="form-control" type="password" id="signin-password"
+                                            placeholder="Enter password" required="" name="password">
+
+                                        <label class="password-toggle-btn" aria-label="Show/hide password">
+                                            <input class="password-toggle-check" type="checkbox"><span
+                                                class="password-toggle-indicator"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <input type="submit" value="Sign in" class="btn btn-primary btn-lg rounded-pill w-100">
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <div class="form-floating">
-                    <input name="password" type="password" class="form-control" id="password" placeholder="Password" required>
-                    <label for="password">Password</label>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                    <div class="invalid-feedback">
-                        Please enter a password.
-                    </div>
-                </div>
-                <input type="submit" value="Login" class="mt-2 btn btn-primary">
-            </form>
+            </div>
         </div>
     </div>
-    <script src="/scripts/form-validation.js"></script>
     <%- include('../partials/footer.ejs') %>
