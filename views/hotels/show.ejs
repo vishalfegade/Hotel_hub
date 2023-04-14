@@ -18,8 +18,29 @@
                 <%= hotel.name %>
             </h1>
             <div class="text-nowrap">
-                <button class="btn btn-icon btn-light-primary btn-xs shadow-sm rounded-circle" type="button"
-                    data-bs-toggle="tooltip" title="Add to Favorites"><i class="fi-heart"></i></button>
+              <% if (hotel.upVotes.indexOf(currentUser._id) != -1) { %>
+                <a class="btn btn-icon btn-light-primary btn-xs shadow-sm rounded-circle" type="button" href="/hotels/<%= hotel._id %>/upvote"
+                    data-bs-toggle="tooltip" title="Add to Liked">
+                    <i class="fi-like like-col"></i>
+                </a>
+              <% } else {%>
+                <a class="btn btn-icon btn-light-primary btn-xs shadow-sm rounded-circle" type="button" href="/hotels/<%= hotel._id %>/upvote"
+                    data-bs-toggle="tooltip" title="Add to Liked">
+                    <i class="fi-like"></i>
+                </a>
+              <% } %>
+
+                <% if (hotel.downVotes.indexOf(currentUser._id) != -1) { %>
+                  <a class="btn btn-icon btn-light-primary btn-xs shadow-sm rounded-circle a-dislike" type="button" href="/hotels/<%= hotel._id %>/downvote"
+                      data-bs-toggle="tooltip" title="Add to Disliked">
+                      <i class="fi-dislike dis-col"></i>
+                  </a>
+                  <% } else {%>
+                    <a class="btn btn-icon btn-light-primary btn-xs shadow-sm rounded-circle" type="button" href="/hotels/<%= hotel._id %>/downvote"
+                        data-bs-toggle="tooltip" title="Add to Disliked">
+                        <i class="fi-dislike"></i>
+                    </a>
+                <% } %>
                 <div class="dropdown d-inline-block" data-bs-toggle="tooltip" title="Share">
                     <button class="btn btn-icon btn-light-primary btn-xs shadow-sm rounded-circle ms-2" type="button"
                         data-bs-toggle="dropdown"><i class="fi-share"></i></button>
@@ -277,6 +298,8 @@
                             class="text-muted">(<%= hotel.reviews.length%> reviews)</span></li>
                     <li><i class="fi-wallet mt-n1 me-1 align-middle opacity-70"></i><%= hotel.price %>&nbsp;$$</li>
                     <li><i class="fi-map-pin mt-n1 me-1 align-middle opacity-70"></i><%= hotel.address%></li>
+                    <li><i class="fi-like"></i> Total Likes : <%= hotel.upVotes.length %> </li>
+                    <li><i class="fi-dislike"></i> Total Dislikes : <%= hotel.downVotes.length %></li>
                 </ul>
                 <div class="mb-4 pb-md-3">
                     <p class="mb-1">Lorem tincidunt lectus vitae id vulputate diam quam. Imperdiet non scelerisque

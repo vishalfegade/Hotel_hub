@@ -81,3 +81,15 @@ body { margin: 0; padding: 0; }
 h1.display-5 > a {
     display: inline;
 }
+
+/* like & dislike  */
+.dis-col {
+    color: red !important;
+}
+.a-dislike:hover {
+    background-color: white !important;
+}
+
+.like-col {
+    color: green !important;
+}
