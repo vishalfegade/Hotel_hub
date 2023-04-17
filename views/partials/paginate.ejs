@@ -4,25 +4,25 @@
             <a class="page-link" href="/hotels?page=1">First Page</a>
         </li>
 
-        <li class="page-item page-item d-none d-sm-block <%= hotels.hasPrevPage ? '' : 'disabled' %>">
+        <li class="page-item page-item d-sm-block <%= hotels.hasPrevPage ? '' : 'disabled' %>">
             <a class="page-link" href="/hotels?page=<%= hotels.prevPage %>"><i class="fi-chevron-left"></i></a>
         </li>
 
-        <li class="page-item page-item d-none d-sm-block active">
+        <li class="page-item page-item d-sm-block active">
             <a class="page-link" href="/hotels?page=<%= hotels.page %>">
                 <%= hotels.page %>
             </a>
         </li>
 
         <% for( let i=hotels.page+1 ; i < Math.min(hotels.totalPages,hotels.page+5); i++ ) { %>
-            <li class="page-item page-item d-none d-sm-block">
+            <li class="page-item page-item d-sm-block">
                 <a class="page-link" href="/hotels?page=<%= i %>">
                     <%= i %>
                 </a>
             </li>
             <% } %>
 
-        <li class="page-item d-none d-sm-block <%= hotels.hasNextPage ? '' : 'disabled' %>">
+        <li class="page-item d-sm-block <%= hotels.hasNextPage ? '' : 'disabled' %>">
             <a class="page-link" href="/hotels?page=<%= hotels.nextPage %>"><i class="fi-chevron-right"></i></a>
         </li>
 

@@ -37,4 +37,9 @@ router.patch('/users/:id', async (req,res)=>{
     }
 })
 
+// routes for user home page
+router.get('/user/user-page',(req,res)=>{
+    res.render('../views/users/user-page.ejs')
+})
+
 module.exports = router;

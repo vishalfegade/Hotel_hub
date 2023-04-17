@@ -102,7 +102,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <% if (currentUser) { %>
-        <a class="btn btn-sm text-primary d-none d-lg-block order-lg-3" href="#">
+        <a class="btn btn-sm text-primary d-none d-lg-block order-lg-3" href="/user/user-page">
           <i class="fi-user me-2"></i>
           <%= currentUser.username %>
         </a>
@@ -164,8 +164,7 @@
 
             <li class="nav-item d-lg-none">
               <% if (currentUser) { %>
-              <%= currentUser %>
-              <!-- </a> -->
+              <%= currentUser.username %>
             </li>
             <% } else {%>
             <a class="nav-link" href="/login">
