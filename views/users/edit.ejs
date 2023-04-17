@@ -1,44 +1,43 @@
 <%- include('../partials/header.ejs') %>
-    <div class="row">
-        <div class="col-3 mx-auto my-5">
-            Edit a User
-            <form action="/users/<%= user._id %>?_method=PATCH" method="post" class="needs-validation" novalidate>
-                <div class="form-floating mb-3">
-                    <input name="user[name]" type="text" class="form-control" id="name" required placeholder="User Name" value="<%= user.name %>">
-                    <label for="name">User Name</label>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                    <div class="invalid-feedback">
-                        Please enter a name for user.
-                    </div>
-                </div>
-                <div class="form-floating mb-3">
-                    <input name="user[image]" type="text" class="form-control" id="address" required placeholder="user image" value="<%= user.image %>">
-                    <label for="address">user image</label>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                    <div class="invalid-feedback">
-                        Please enter a image for user.
-                    </div>
-                </div>
-                <div class="form-floating mb-3">
-                    <input name="user[username]" type="text" class="form-control" id="price" required placeholder="user username" value="<%= user.username %>" disabled>
-                    <label for="price">user username</label>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                    <div class="invalid-feedback">
-                        Please enter a price for hotel [from 100 - to 1000].
-                    </div>
-                </div>
 
-
-
-                <input type="submit" value="edit" class="mt-2 btn btn-primary">
-            </form>
-        </div>
+<!-- Page content-->
+<section class="container my-5 pt-lg-5 pt-4 pb-lg-5">
+  <!-- Breadcrumbs-->
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb pt-3 mb-4">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Edit User</li>
+    </ol>
+  </nav>
+  <div class="row gy-4">
+    <div class="col-md-6"><img class="rounded-3" src="<%= user.image %>" alt="Cover">
     </div>
-    <script src="/scripts/form-validation.js"></script>
-    <%- include('../partials/footer.ejs') %>
+    <div class="col-xl-5 offset-xl-1 col-md-6">
+      <h1 class="mb-md-4 mb-3">User Details</h1>
+      <p class="mb-4 pb-md-2 fs-lg">Fill out the form and you can edit the current user.</p>
+      <!-- Contact form-->
+      <form class="needs-validation row row-cols-sm-2 row-cols-1 gy-sm-4 gy-3" action="/users/<%= user._id %>?_method=PATCH" method="post" novalidate>
+        <div class="col">
+          <label class="form-label" for="c-name">Full Name</label>
+          <input class="form-control form-control-lg" id="c-name" type="text" required name="user[name]" value="<%= user.name %>">
+          <div class="invalid-tooltip mt-1">Please, enter your name</div>
+        </div>
+        <div class="col">
+          <label class="form-label" for="c-email">Email</label>
+          <input class="form-control form-control-lg" id="c-email" type="email" required name="user[username]" value="<%= user.username %>">
+          <div class="invalid-tooltip mt-1">Please, enter your email</div>
+        </div>
+        <div class="col-12 w-100">
+          <label class="form-label" for="c-message">Profile Image URL</label>
+          <input class="form-control form-control-lg" id="c-message" type="email" required name="user[image]" value="<%= user.image %>" placeholder="Enter Profile image Pic URL">
+          <div class="invalid-tooltip mt-1">Enter Profile image Pic URL</div>
+        </div>
+        <div class="col-12 w-100">
+          <input type="submit" value="Submit Form" class="btn btn-lg btn-primary w-sm-auto w-100 mt-2">
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer.ejs') %>
