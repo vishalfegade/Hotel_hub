@@ -1,4 +1,4 @@
-# Staysense
+# Hotel-Hub
 
 - Redirect to old page after login
 - Files upload feature, using cloudinary
