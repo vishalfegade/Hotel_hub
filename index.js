@@ -13,8 +13,8 @@ require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT;
-const URI = process.env.Database_URI;
-const SESSION_PASSWORD = process.env.SESSION_PASSWORD
+const URI = process.env.MONGO_URI;
+const SESSION_PASSWORD = process.env.SESSION_PASS
 
 //! MONGOOSE CONNECTION
 mongoose.connect(URI, {

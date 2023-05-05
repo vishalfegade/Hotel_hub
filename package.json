@@ -12,8 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@mapbox/mapbox-sdk": "^0.15.0",
-    "cloudinary": "^1.35.0",
+    "@mapbox/mapbox-sdk": "^0.15.1",
+    "cloudinary": "^1.36.4",
     "connect-flash": "^0.1.1",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.9",
@@ -28,6 +28,6 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^6.0.1",
-    "stripe": "^12.1.1"
+    "stripe": "^12.3.0"
   }
 }

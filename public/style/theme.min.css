@@ -297,7 +297,7 @@ a {
 }
 
 a:hover {
-    color: var(--fi-link-hover-color);
+    color: red;
     text-decoration: none
 }
 
