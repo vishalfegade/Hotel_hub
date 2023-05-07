@@ -1,6 +1,6 @@
 # Hotel Hub - Node JS
 
-Hotel Finder is a web application built with Node.js that allows users to post and search for hotels, as well as perform other actions such as editing hotels, adding and editing users, upvoting and downvoting hotels, and making payments using Mapbox.
+Hotel hub is a web application built with Node.js that allows users to post and search for hotels, as well as perform other actions such as editing hotels, adding and editing users, upvoting and downvoting hotels, and making payments using Mapbox.
 
 
 # Features
